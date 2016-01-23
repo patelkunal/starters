@@ -1,0 +1,41 @@
+apply plugin: 'war'
+apply plugin: 'java'
+
+apply plugin: 'org.akhikhl.gretty'
+buildscript {
+    repositories {
+		jcenter()        
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
+ext.springVersion = '4.2.2.RELEASE'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	jcenter()        
+}
+
+dependencies {
+	compile "org.springframework:spring-context:$springVersion"
+	compile "org.springframework:spring-webmvc:$springVersion"
+    
+	// add following two libraries for json based rest-api
+	//compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+	//compile 'com.fasterxml.jackson.core:jackson-core:2.6.3'
+
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
+    
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}
+
+gretty {
+    port = 9090
+    contextPath = '/'
+    servletContainer = 'jetty9'
+}
+
