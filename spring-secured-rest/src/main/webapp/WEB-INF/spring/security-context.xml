@@ -6,6 +6,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
+	<http>
+		<intercept-url pattern="/**" access="hasRole('USER')" />
+		<form-login default-target-url="/" always-use-default-target="true" />
+		<logout logout-url="/bye" delete-cookies="JSESSIONID"/>
+	</http>
 	
-
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="kp" password="kpspassword" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="np" password="npspassword" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+	
 </beans:beans>
